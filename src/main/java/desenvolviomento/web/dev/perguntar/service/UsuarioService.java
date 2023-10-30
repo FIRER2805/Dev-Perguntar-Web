@@ -17,4 +17,24 @@ public class UsuarioService {
 	public List<Usuario> buscaTodos() {
 		return (List<Usuario>) this.usuarioRepository.findAll();
 	}
+
+	public Usuario buscaTodosPorId(Long id) {
+		return this.usuarioRepository.findById(id).get();
+	}
+
+	public Usuario cadastraUsuario(Usuario usuario) {
+		return this.usuarioRepository.save(usuario);
+	}
+
+	public boolean deletar(Usuario usuario) {
+		//TODO mudar isso
+		long quantidadeAtual = this.usuarioRepository.count();
+		this.usuarioRepository.delete(usuario);
+		return quantidadeAtual > this.usuarioRepository.count() ? true
+				: false;
+	}
+
+	public Usuario atualizar(Usuario usuario) {
+		return this.usuarioRepository.save(usuario);
+	}
 }
