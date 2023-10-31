@@ -12,29 +12,25 @@ import desenvolviomento.web.dev.perguntar.model.repository.UsuarioRepository;
 public class UsuarioService {
 	
 	@Autowired
-	private UsuarioRepository usuarioRepository;
+	private UsuarioRepository repository;
 
 	public List<Usuario> buscaTodos() {
-		return (List<Usuario>) this.usuarioRepository.findAll();
+		return (List<Usuario>) this.repository.findAll();
 	}
 
 	public Usuario buscaTodosPorId(Long id) {
-		return this.usuarioRepository.findById(id).get();
+		return this.repository.findById(id).get();
 	}
 
 	public Usuario cadastraUsuario(Usuario usuario) {
-		return this.usuarioRepository.save(usuario);
+		return this.repository.save(usuario);
 	}
 
-	public boolean deletar(Usuario usuario) {
-		//TODO mudar isso
-		long quantidadeAtual = this.usuarioRepository.count();
-		this.usuarioRepository.delete(usuario);
-		return quantidadeAtual > this.usuarioRepository.count() ? true
-				: false;
+	public void deletar(Usuario usuario) {
+		this.repository.delete(usuario);
 	}
 
 	public Usuario atualizar(Usuario usuario) {
-		return this.usuarioRepository.save(usuario);
+		return this.repository.save(usuario);
 	}
 }

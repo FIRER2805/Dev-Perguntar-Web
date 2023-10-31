@@ -43,7 +43,7 @@ public class UsuarioController {
 	}
 	
 	@DeleteMapping
-	public boolean deletar(@RequestBody Usuario usuario) {
-		return this.usuarioService.deletar(usuario);
+	public void deletar(@RequestBody Usuario usuario) {
+		this.usuarioService.deletar(usuario);
 	}
 }
