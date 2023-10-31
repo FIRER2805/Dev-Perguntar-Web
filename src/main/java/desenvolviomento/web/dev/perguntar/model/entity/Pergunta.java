@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -21,6 +23,10 @@ public class Pergunta {
     private Date dataPergunta;
     @Column(name = "data_resolucao")
     private Date dataResolucao;
+    
+    @OneToOne
+    @JoinColumn(name="id_categoria")
+    private Categoria categoria;
     
 	public Long getId() {
 		return id;
