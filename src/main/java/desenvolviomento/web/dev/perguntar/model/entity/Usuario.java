@@ -1,13 +1,16 @@
 package desenvolviomento.web.dev.perguntar.model.entity;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @Table(name="usuario")
@@ -21,6 +24,23 @@ public class Usuario {
 	private String senha;
 	private boolean ativo;
 	
+	@OneToMany(mappedBy="usuario")
+	@JsonBackReference
+	private List<Pergunta> perguntas;
+	
+	@OneToMany(mappedBy="usuario")
+	@JsonBackReference
+	private List<Resposta> respostas;
+	
+	public List<Pergunta> getPerguntas() {
+		return perguntas;
+	}
+	public void setPerguntas(List<Pergunta> perguntas) {
+		this.perguntas = perguntas;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 	public long getId() {
 		return id;
 	}
