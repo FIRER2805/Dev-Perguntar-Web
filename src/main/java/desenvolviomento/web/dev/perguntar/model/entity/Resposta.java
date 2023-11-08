@@ -1,5 +1,7 @@
 package desenvolviomento.web.dev.perguntar.model.entity;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -9,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -30,6 +33,21 @@ public class Resposta {
     @JsonManagedReference
     private Usuario usuario;
     
+    @ManyToOne
+    @JoinColumn(name = "id_resposta")
+    @JsonBackReference
+    private Resposta respostaPai;
+    
+    @OneToMany(mappedBy = "respostaPai")
+    @JsonManagedReference
+    private List<Resposta> respostaFilhas;
+    
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 	public Pergunta getPergunta() {
 		return pergunta;
 	}
