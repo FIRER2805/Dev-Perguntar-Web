@@ -33,4 +33,24 @@ public class UsuarioService {
 	public Usuario atualizar(Usuario usuario) {
 		return this.repository.save(usuario);
 	}
+	
+	
+	// TODO fazer as exception e a verificação se o e-mail existe
+	private void ValidaCampos(Usuario usuario){
+        if (usuario == null) {
+            
+        }
+
+        if (usuario.getNome() == null || usuario.getNome().isBlank() || usuario.getNome().length() > 50) {
+            
+        }
+
+        if (usuario.getEmail() == null || usuario.getEmail().isBlank() || usuario.getEmail().length() > 255) {
+            
+        }
+
+        if (usuario.getSenha() == null || usuario.getSenha().isBlank() || usuario.getSenha().length() > 50) {
+            
+        }
+	}
 }

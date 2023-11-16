@@ -29,26 +29,14 @@ public class Pergunta {
     @Column(name = "data_resolucao")
     private Date dataResolucao;
     
-    @OneToOne()
+    @OneToOne
     @JoinColumn(name="id_categoria")
     private Categoria categoria;
     
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "id_usuario")
-    @JsonManagedReference
     private Usuario usuario;
     
-    @OneToMany(mappedBy="pergunta")
-    @JsonManagedReference
-    private List<Resposta> respostas;
-    
-    
-	public List<Resposta> getRespostas() {
-		return respostas;
-	}
-	public void setRespostas(List<Resposta> respostas) {
-		this.respostas = respostas;
-	}
 	public Categoria getCategoria() {
 		return categoria;
 	}

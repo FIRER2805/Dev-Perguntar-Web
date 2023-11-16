@@ -32,4 +32,14 @@ public class RespostaService {
     public void deletar(Resposta resposta) {
         repository.delete(resposta);
     }
+    
+    private void validaCampos(Resposta resposta) {
+        if (resposta == null) {
+        	
+        }
+
+        if (resposta.getConteudo() == null || resposta.getConteudo().isBlank()) {
+        	
+        }
+    }
 }

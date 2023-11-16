@@ -16,7 +16,7 @@ import desenvolviomento.web.dev.perguntar.model.entity.Usuario;
 import desenvolviomento.web.dev.perguntar.service.UsuarioService;
 
 @RestController
-@RequestMapping("/usuario")
+@RequestMapping(path="/usuario")
 public class UsuarioController {
 	
 	@Autowired

@@ -16,12 +16,12 @@ import desenvolviomento.web.dev.perguntar.model.entity.Resposta;
 import desenvolviomento.web.dev.perguntar.service.RespostaService;
 
 @RestController
-@RequestMapping("/resposta")
+@RequestMapping(path="/resposta")
 public class RespostaController {
     @Autowired
     private RespostaService service;
 
-    @GetMapping
+    @GetMapping()
     public List<Resposta> buscarTodos() {
         return service.buscarTodos();
     }

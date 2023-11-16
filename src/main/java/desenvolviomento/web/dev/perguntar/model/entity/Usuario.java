@@ -28,16 +28,6 @@ public class Usuario {
 	@JsonBackReference
 	private List<Pergunta> perguntas;
 	
-	@OneToMany(mappedBy="usuario")
-	@JsonBackReference
-	private List<Resposta> respostas;
-	
-	public List<Pergunta> getPerguntas() {
-		return perguntas;
-	}
-	public void setPerguntas(List<Pergunta> perguntas) {
-		this.perguntas = perguntas;
-	}
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -70,5 +60,11 @@ public class Usuario {
 	}
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
+	}
+	public List<Pergunta> getPerguntas() {
+		return perguntas;
+	}
+	public void setPerguntas(List<Pergunta> perguntas) {
+		this.perguntas = perguntas;
 	}
 }

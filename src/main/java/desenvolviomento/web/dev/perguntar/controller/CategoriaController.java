@@ -16,7 +16,7 @@ import desenvolviomento.web.dev.perguntar.model.entity.Categoria;
 import desenvolviomento.web.dev.perguntar.service.CategoriaService;
 
 @RestController
-@RequestMapping("/categoria")
+@RequestMapping(path="/categoria")
 public class CategoriaController {
     @Autowired
     private CategoriaService service;

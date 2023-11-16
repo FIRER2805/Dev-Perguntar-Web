@@ -13,13 +13,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import desenvolviomento.web.dev.perguntar.model.entity.Pergunta;
+import desenvolviomento.web.dev.perguntar.model.entity.Usuario;
 import desenvolviomento.web.dev.perguntar.service.PerguntaService;
+import desenvolviomento.web.dev.perguntar.service.UsuarioService;
 
 @RestController
-@RequestMapping("/pergunta")
+@RequestMapping(path="/pergunta")
 public class PerguntaController {
     @Autowired
     private PerguntaService perguntaService;
+    
+    @Autowired
+    private UsuarioService usuarioService;
 
     @GetMapping
     public List<Pergunta> buscarTodos() {
@@ -31,8 +36,11 @@ public class PerguntaController {
         return perguntaService.buscarPorId(id);
     }
     
-    @PostMapping
-    public Pergunta salvar(@RequestBody Pergunta pergunta) {
+    // TODO perguntar pro professor se seria melhor usar um DTO
+    @PostMapping("/{idUsuario}")
+    public Pergunta salvar(@RequestBody Pergunta pergunta, @PathVariable Long idUsuario) {
+    	Usuario usuario = usuarioService.buscaTodosPorId(idUsuario);
+    	pergunta.setUsuario(usuario);
         return perguntaService.salvar(pergunta);
     }
 

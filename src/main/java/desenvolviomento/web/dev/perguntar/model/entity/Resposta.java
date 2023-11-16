@@ -21,16 +21,14 @@ public class Resposta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String conteudo;
-    private boolean solucao;
+    private Boolean solucao;
     
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name="id_pergunta")
-    @JsonBackReference
     private Pergunta pergunta;
     
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name="id_usuario")
-    @JsonManagedReference
     private Usuario usuario;
     
     @ManyToOne
@@ -39,7 +37,6 @@ public class Resposta {
     private Resposta respostaPai;
     
     @OneToMany(mappedBy = "respostaPai")
-    @JsonManagedReference
     private List<Resposta> respostaFilhas;
     
 	public Usuario getUsuario() {

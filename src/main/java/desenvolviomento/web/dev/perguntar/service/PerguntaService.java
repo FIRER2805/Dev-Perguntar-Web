@@ -33,5 +33,23 @@ public class PerguntaService {
 	public void deletar(Pergunta pergunta) {
 		this.repository.delete(pergunta);
 	}
+	
+    private void validaCampos(Pergunta pergunta) {
+        if (pergunta == null) {
+        	
+        }
+
+        if (pergunta.getTitulo() == null || pergunta.getTitulo().isBlank() || pergunta.getTitulo().length() > 100) {
+        	
+        }
+
+        if (pergunta.getConteudo() == null || pergunta.getConteudo().isBlank()) {
+        	
+        }
+
+        if (pergunta.getDataPergunta() == null) {
+        	
+        }
+    }
 
 }
