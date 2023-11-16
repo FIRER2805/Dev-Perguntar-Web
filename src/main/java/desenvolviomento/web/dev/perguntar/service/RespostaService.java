@@ -34,10 +34,6 @@ public class RespostaService {
     }
     
     private void validaCampos(Resposta resposta) {
-        if (resposta == null) {
-        	
-        }
-
         if (resposta.getConteudo() == null || resposta.getConteudo().isBlank()) {
         	
         }

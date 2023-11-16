@@ -38,10 +38,8 @@ public class PerguntaController {
     }
     
     // TODO perguntar pro professor se seria melhor usar um DTO
-    @PostMapping("/{idUsuario}")
-    public Pergunta salvar(@RequestBody Pergunta pergunta, @PathVariable Long idUsuario) throws CampoInvalidoException {
-    	Usuario usuario = usuarioService.buscaTodosPorId(idUsuario);
-    	pergunta.setUsuario(usuario);
+    @PostMapping
+    public Pergunta salvar(@RequestBody Pergunta pergunta) throws CampoInvalidoException {
         return perguntaService.salvar(pergunta);
     }
 

@@ -37,6 +37,10 @@ public class UsuarioService {
 		return this.repository.save(usuario);
 	}
 	
+	private Boolean emailDisponivel(String email) {
+		return repository.findByEmail(email) == null;
+	}
+	
 	// TODO fazer as exception e a verificação se o e-mail existe
 	private void ValidaCampos(Usuario usuario) throws CampoInvalidoException{
         String mensagem = "";
