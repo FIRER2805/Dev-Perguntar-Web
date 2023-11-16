@@ -24,12 +24,12 @@ public class PerguntaService {
 	}
 
 	public Pergunta salvar(Pergunta pergunta) throws CampoInvalidoException {
-		ValidaCampos(pergunta);
+		this.ValidaCampos(pergunta);
 		return this.repository.save(pergunta);
 	}
 
 	public Pergunta atualizar(Pergunta pergunta) throws CampoInvalidoException {
-		ValidaCampos(pergunta);
+		this.ValidaCampos(pergunta);
 		return this.repository.save(pergunta);
 	}
 

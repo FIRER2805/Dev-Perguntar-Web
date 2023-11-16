@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import desenvolviomento.web.dev.perguntar.exceptions.CampoInvalidoException;
 import desenvolviomento.web.dev.perguntar.model.entity.Categoria;
 import desenvolviomento.web.dev.perguntar.service.CategoriaService;
 
@@ -32,12 +33,12 @@ public class CategoriaController {
     }
 
     @PostMapping
-    public Categoria salvar(@RequestBody Categoria categoria) {
+    public Categoria salvar(@RequestBody Categoria categoria) throws CampoInvalidoException {
         return service.salvar(categoria);
     }
 
     @PutMapping
-    public Categoria atualizar(@RequestBody Categoria categoria) {
+    public Categoria atualizar(@RequestBody Categoria categoria) throws CampoInvalidoException {
         return service.atualizar(categoria);
     }
 

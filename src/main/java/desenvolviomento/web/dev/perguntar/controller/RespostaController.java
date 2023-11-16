@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import desenvolviomento.web.dev.perguntar.exceptions.CampoInvalidoException;
 import desenvolviomento.web.dev.perguntar.model.entity.Resposta;
 import desenvolviomento.web.dev.perguntar.service.RespostaService;
 
@@ -32,12 +33,12 @@ public class RespostaController {
     }
 
     @PostMapping
-    public Resposta salvar(@RequestBody Resposta resposta) {
+    public Resposta salvar(@RequestBody Resposta resposta) throws CampoInvalidoException {
         return service.salvar(resposta);
     }
 
     @PutMapping
-    public Resposta atualizar(@RequestBody Resposta resposta) {
+    public Resposta atualizar(@RequestBody Resposta resposta) throws CampoInvalidoException {
         return service.atualizar(resposta);
     }
 
