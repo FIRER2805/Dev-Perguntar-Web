@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import desenvolviomento.web.dev.perguntar.exceptions.CampoInvalidoException;
 import desenvolviomento.web.dev.perguntar.model.entity.Pergunta;
 import desenvolviomento.web.dev.perguntar.model.entity.Usuario;
 import desenvolviomento.web.dev.perguntar.service.PerguntaService;
@@ -38,14 +39,14 @@ public class PerguntaController {
     
     // TODO perguntar pro professor se seria melhor usar um DTO
     @PostMapping("/{idUsuario}")
-    public Pergunta salvar(@RequestBody Pergunta pergunta, @PathVariable Long idUsuario) {
+    public Pergunta salvar(@RequestBody Pergunta pergunta, @PathVariable Long idUsuario) throws CampoInvalidoException {
     	Usuario usuario = usuarioService.buscaTodosPorId(idUsuario);
     	pergunta.setUsuario(usuario);
         return perguntaService.salvar(pergunta);
     }
 
     @PutMapping
-    public Pergunta atualizar(@RequestBody Pergunta pergunta) {
+    public Pergunta atualizar(@RequestBody Pergunta pergunta) throws CampoInvalidoException {
         return perguntaService.atualizar(pergunta);
     }
 

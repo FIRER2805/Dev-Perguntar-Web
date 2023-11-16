@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import desenvolviomento.web.dev.perguntar.exceptions.CampoInvalidoException;
 import desenvolviomento.web.dev.perguntar.model.entity.Pergunta;
 import desenvolviomento.web.dev.perguntar.model.repository.PerguntaRepository;
 
@@ -22,11 +23,13 @@ public class PerguntaService {
 		return this.repository.findById(id).get();
 	}
 
-	public Pergunta salvar(Pergunta pergunta) {
+	public Pergunta salvar(Pergunta pergunta) throws CampoInvalidoException {
+		ValidaCampos(pergunta);
 		return this.repository.save(pergunta);
 	}
 
-	public Pergunta atualizar(Pergunta pergunta) {
+	public Pergunta atualizar(Pergunta pergunta) throws CampoInvalidoException {
+		ValidaCampos(pergunta);
 		return this.repository.save(pergunta);
 	}
 
@@ -34,21 +37,21 @@ public class PerguntaService {
 		this.repository.delete(pergunta);
 	}
 	
-    private void validaCampos(Pergunta pergunta) {
-        if (pergunta == null) {
-        	
-        }
+    private void ValidaCampos(Pergunta pergunta) throws CampoInvalidoException {
+        String mensagem = "";
 
         if (pergunta.getTitulo() == null || pergunta.getTitulo().isBlank() || pergunta.getTitulo().length() > 100) {
-        	
+            mensagem += "Título inválido\n";
         }
-
         if (pergunta.getConteudo() == null || pergunta.getConteudo().isBlank()) {
-        	
+            mensagem += "Conteúdo inválido\n";
+        }
+        if (pergunta.getDataPergunta() == null) {
+            mensagem += "Data da pergunta inválida\n";
         }
 
-        if (pergunta.getDataPergunta() == null) {
-        	
+        if (!mensagem.isBlank()) {
+            throw new CampoInvalidoException(mensagem);
         }
     }
 

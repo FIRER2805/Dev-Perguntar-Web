@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import desenvolviomento.web.dev.perguntar.exceptions.CampoInvalidoException;
 import desenvolviomento.web.dev.perguntar.model.entity.Usuario;
 import desenvolviomento.web.dev.perguntar.model.repository.UsuarioRepository;
 
@@ -22,7 +23,8 @@ public class UsuarioService {
 		return this.repository.findById(id).get();
 	}
 
-	public Usuario cadastraUsuario(Usuario usuario) {
+	public Usuario cadastraUsuario(Usuario usuario) throws CampoInvalidoException {
+		this.ValidaCampos(usuario);
 		return this.repository.save(usuario);
 	}
 
@@ -30,27 +32,27 @@ public class UsuarioService {
 		this.repository.delete(usuario);
 	}
 
-	public Usuario atualizar(Usuario usuario) {
+	public Usuario atualizar(Usuario usuario) throws CampoInvalidoException {
+		this.ValidaCampos(usuario);
 		return this.repository.save(usuario);
 	}
 	
-	
 	// TODO fazer as exception e a verificação se o e-mail existe
-	private void ValidaCampos(Usuario usuario){
-        if (usuario == null) {
-            
+	private void ValidaCampos(Usuario usuario) throws CampoInvalidoException{
+        String mensagem = "";
+        
+		if (usuario.getNome() == null || usuario.getNome().isBlank() || usuario.getNome().length() > 50) {
+            mensagem += "Nome inválido\n";
         }
-
-        if (usuario.getNome() == null || usuario.getNome().isBlank() || usuario.getNome().length() > 50) {
-            
-        }
-
         if (usuario.getEmail() == null || usuario.getEmail().isBlank() || usuario.getEmail().length() > 255) {
-            
+        	mensagem += "E-mail inválido\n";
         }
-
         if (usuario.getSenha() == null || usuario.getSenha().isBlank() || usuario.getSenha().length() > 50) {
-            
+        	mensagem += "senha inválida\n";
+        }
+        
+        if(!mensagem.isBlank()) {
+        	throw new CampoInvalidoException(mensagem);
         }
 	}
 }

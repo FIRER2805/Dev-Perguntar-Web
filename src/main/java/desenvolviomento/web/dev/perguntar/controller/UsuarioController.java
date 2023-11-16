@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import desenvolviomento.web.dev.perguntar.exceptions.CampoInvalidoException;
 import desenvolviomento.web.dev.perguntar.model.entity.Usuario;
 import desenvolviomento.web.dev.perguntar.service.UsuarioService;
 
@@ -33,12 +34,12 @@ public class UsuarioController {
 	}
 	
 	@PostMapping
-	public Usuario cadastraUsuario(@RequestBody Usuario usuario){
+	public Usuario cadastraUsuario(@RequestBody Usuario usuario) throws CampoInvalidoException{
 		return this.usuarioService.cadastraUsuario(usuario);
 	}
 	
 	@PutMapping
-	public Usuario atualizar(@RequestBody Usuario usuario) {
+	public Usuario atualizar(@RequestBody Usuario usuario) throws CampoInvalidoException {
 		return this.usuarioService.atualizar(usuario);
 	}
 	
