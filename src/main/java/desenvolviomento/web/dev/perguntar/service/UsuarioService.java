@@ -24,7 +24,7 @@ public class UsuarioService {
 	}
 
 	public Usuario cadastraUsuario(Usuario usuario) throws CampoInvalidoException {
-		this.ValidaCampos(usuario);
+		this.validarCampos(usuario);
 		return this.repository.save(usuario);
 	}
 
@@ -33,7 +33,8 @@ public class UsuarioService {
 	}
 
 	public Usuario atualizar(Usuario usuario) throws CampoInvalidoException {
-		this.ValidaCampos(usuario);
+		this.validarCampos(usuario);
+		
 		return this.repository.save(usuario);
 	}
 	
@@ -42,7 +43,7 @@ public class UsuarioService {
 	}
 	
 	// TODO fazer as exception e a verificação se o e-mail existe
-	private void ValidaCampos(Usuario usuario) throws CampoInvalidoException{
+	private void validarCampos(Usuario usuario) throws CampoInvalidoException{
         String mensagem = "";
         
 		if (usuario.getNome() == null || usuario.getNome().isBlank() || usuario.getNome().length() > 50) {
@@ -54,6 +55,10 @@ public class UsuarioService {
         if (usuario.getSenha() == null || usuario.getSenha().isBlank() || usuario.getSenha().length() > 50) {
         	mensagem += "senha inválida\n";
         }
+        
+		if(!emailDisponivel(usuario.getEmail())) {
+			mensagem += "Email já utilizado";
+		}
         
         if(!mensagem.isBlank()) {
         	throw new CampoInvalidoException(mensagem);

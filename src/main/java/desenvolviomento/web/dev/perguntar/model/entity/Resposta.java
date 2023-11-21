@@ -69,4 +69,22 @@ public class Resposta {
 	public void setSolucao(boolean solucao) {
 		this.solucao = solucao;
 	}
+	public Boolean getSolucao() {
+		return solucao;
+	}
+	public void setSolucao(Boolean solucao) {
+		this.solucao = solucao;
+	}
+	public Resposta getRespostaPai() {
+		return respostaPai;
+	}
+	public void setRespostaPai(Resposta respostaPai) {
+		this.respostaPai = respostaPai;
+	}
+	public List<Resposta> getRespostaFilhas() {
+		return respostaFilhas;
+	}
+	public void setRespostaFilhas(List<Resposta> respostaFilhas) {
+		this.respostaFilhas = respostaFilhas;
+	}
 }
