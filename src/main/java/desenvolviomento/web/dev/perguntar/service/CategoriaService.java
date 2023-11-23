@@ -44,6 +44,10 @@ public class CategoriaService {
 		if (categoria.getNome() == null || categoria.getNome().isBlank() || categoria.getNome().length() > 50) {
             mensagem += "Nome inválido\n";
         }
+		
+		if(repository.findByNome(categoria.getNome()) != null) {
+			mensagem += "Nome já utilizado!";
+		}
         
         if(!mensagem.isBlank()) {
         	throw new CampoInvalidoException(mensagem);

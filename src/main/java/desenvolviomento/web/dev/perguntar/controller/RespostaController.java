@@ -3,6 +3,8 @@ package desenvolviomento.web.dev.perguntar.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,17 +35,28 @@ public class RespostaController {
     }
 
     @PostMapping
-    public Resposta salvar(@RequestBody Resposta resposta) throws CampoInvalidoException {
-        return service.salvar(resposta);
+    public ResponseEntity<Resposta> salvar(@RequestBody Resposta resposta) {
+        try {
+        	return new ResponseEntity<Resposta>(service.salvar(resposta),HttpStatus.CREATED);
+        }
+        catch(CampoInvalidoException e) {
+        	return new ResponseEntity<Resposta>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PutMapping
-    public Resposta atualizar(@RequestBody Resposta resposta) throws CampoInvalidoException {
-        return service.atualizar(resposta);
+    public ResponseEntity<Resposta> atualizar(@RequestBody Resposta resposta) throws CampoInvalidoException {
+        try {
+        	return new ResponseEntity<Resposta>(service.atualizar(resposta),HttpStatus.CREATED);
+        }
+        catch(CampoInvalidoException e) {
+        	return new ResponseEntity<Resposta>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @DeleteMapping
-    public void deletar(@RequestBody Resposta resposta) {
+    public ResponseEntity<Resposta> deletar(@RequestBody Resposta resposta) {
         service.deletar(resposta);
+        return new ResponseEntity<Resposta>(HttpStatus.OK);
     }
 }

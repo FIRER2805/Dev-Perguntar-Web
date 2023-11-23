@@ -3,6 +3,8 @@ package desenvolviomento.web.dev.perguntar.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,17 +36,28 @@ public class UsuarioController {
 	}
 	
 	@PostMapping
-	public Usuario cadastraUsuario(@RequestBody Usuario usuario) throws CampoInvalidoException{
-		return this.usuarioService.cadastraUsuario(usuario);
+	public ResponseEntity<Usuario> cadastraUsuario(@RequestBody Usuario usuario){
+		try {
+			return new ResponseEntity<Usuario>(this.usuarioService.cadastraUsuario(usuario), HttpStatus.CREATED);
+		}
+		catch(CampoInvalidoException e) {
+			return new ResponseEntity<Usuario>(HttpStatus.BAD_REQUEST);
+		}
 	}
 	
 	@PutMapping
-	public Usuario atualizar(@RequestBody Usuario usuario) throws CampoInvalidoException {
-		return this.usuarioService.atualizar(usuario);
+	public ResponseEntity<Usuario> atualizar(@RequestBody Usuario usuario){
+		try {
+			return new ResponseEntity<Usuario>(this.usuarioService.atualizar(usuario), HttpStatus.CREATED);
+		}
+		catch(CampoInvalidoException e) {
+			return new ResponseEntity<Usuario>(HttpStatus.BAD_REQUEST);
+		}
 	}
 	
 	@DeleteMapping
-	public void deletar(@RequestBody Usuario usuario) {
+	public ResponseEntity<Usuario> deletar(@RequestBody Usuario usuario) {
 		this.usuarioService.deletar(usuario);
+		return new ResponseEntity<Usuario>(HttpStatus.OK);
 	}
 }

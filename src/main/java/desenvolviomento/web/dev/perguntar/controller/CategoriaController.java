@@ -3,6 +3,8 @@ package desenvolviomento.web.dev.perguntar.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,17 +35,32 @@ public class CategoriaController {
     }
 
     @PostMapping
-    public Categoria salvar(@RequestBody Categoria categoria) throws CampoInvalidoException {
-        return service.salvar(categoria);
+    public ResponseEntity<Categoria> salvar(@RequestBody Categoria categoria) throws CampoInvalidoException {
+    	ResponseEntity<Categoria> retorno = null;
+    	try {
+    		retorno = new ResponseEntity<Categoria>(service.salvar(categoria),HttpStatus.OK);
+    	}
+    	catch(CampoInvalidoException e) {
+    		retorno = new ResponseEntity<Categoria>(HttpStatus.BAD_REQUEST);
+    	}
+    	return retorno;
     }
 
     @PutMapping
-    public Categoria atualizar(@RequestBody Categoria categoria) throws CampoInvalidoException {
-        return service.atualizar(categoria);
+    public ResponseEntity<Categoria> atualizar(@RequestBody Categoria categoria){
+    	ResponseEntity<Categoria> retorno = null;
+    	try {
+    		retorno = new ResponseEntity<Categoria>(service.atualizar(categoria),HttpStatus.OK);
+    	}
+    	catch(CampoInvalidoException e) {
+    		retorno = new ResponseEntity<Categoria>(HttpStatus.BAD_REQUEST);
+    	}
+    	return retorno;
     }
 
     @DeleteMapping
-    public void deletar(@RequestBody Categoria categoria) {
+    public ResponseEntity<Categoria> deletar(@RequestBody Categoria categoria) {
         service.deletar(categoria);
+        return new ResponseEntity<Categoria>(HttpStatus.OK);
     }
 }
