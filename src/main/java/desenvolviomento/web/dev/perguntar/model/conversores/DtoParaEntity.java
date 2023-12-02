@@ -1,6 +1,7 @@
 package desenvolviomento.web.dev.perguntar.model.conversores;
 
 import desenvolviomento.web.dev.perguntar.model.dto.PerguntaDTO;
+import desenvolviomento.web.dev.perguntar.model.dto.RespostaArvoreDTO;
 import desenvolviomento.web.dev.perguntar.model.dto.UsuarioDTO;
 import desenvolviomento.web.dev.perguntar.model.entity.Usuario;
 import org.modelmapper.ModelMapper;

@@ -3,7 +3,6 @@ package desenvolviomento.web.dev.perguntar.model.entity;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,10 +20,11 @@ public class Resposta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String conteudo;
-    private Boolean solucao;
+    private boolean solucao;
     
     @ManyToOne
     @JoinColumn(name="id_pergunta")
+	@JsonBackReference
     private Pergunta pergunta;
     
     @ManyToOne
@@ -37,7 +37,7 @@ public class Resposta {
     private Resposta respostaPai;
     
     @OneToMany(mappedBy = "respostaPai")
-    private List<Resposta> respostaFilhas;
+    private List<Resposta> respostasFilhas;
     
 	public Usuario getUsuario() {
 		return usuario;
@@ -81,10 +81,10 @@ public class Resposta {
 	public void setRespostaPai(Resposta respostaPai) {
 		this.respostaPai = respostaPai;
 	}
-	public List<Resposta> getRespostaFilhas() {
-		return respostaFilhas;
+	public List<Resposta> getRespostasFilhas() {
+		return respostasFilhas;
 	}
-	public void setRespostaFilhas(List<Resposta> respostaFilhas) {
-		this.respostaFilhas = respostaFilhas;
+	public void setRespostasFilhas(List<Resposta> respostasFilhas) {
+		this.respostasFilhas = respostasFilhas;
 	}
 }

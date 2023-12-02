@@ -1,8 +1,11 @@
 package desenvolviomento.web.dev.perguntar.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import desenvolviomento.web.dev.perguntar.model.conversores.DtoParaEntity;
+import desenvolviomento.web.dev.perguntar.model.conversores.EntityParaDto;
+import desenvolviomento.web.dev.perguntar.model.dto.RespostaArvoreDTO;
 import desenvolviomento.web.dev.perguntar.model.dto.RespostaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,24 +24,31 @@ import desenvolviomento.web.dev.perguntar.exceptions.CampoInvalidoException;
 import desenvolviomento.web.dev.perguntar.model.entity.Resposta;
 import desenvolviomento.web.dev.perguntar.service.RespostaService;
 
+import javax.swing.text.html.parser.Entity;
+
 @RestController
 @RequestMapping(path="/resposta")
 @CrossOrigin(origins = {"http://localhost:4200","http://localhost:5500"}, maxAge = 3600)
 public class RespostaController {
     @Autowired
     private RespostaService service;
-
     @Autowired
     DtoParaEntity dtoParaEntity;
+    @Autowired
+    EntityParaDto entityParaDto;
 
     @GetMapping()
     public List<Resposta> buscarTodos() {
         return service.buscarTodos();
     }
 
-    @GetMapping("/{id}")
-    public Resposta buscarPorId(@PathVariable Long id) {
-        return service.buscarPorId(id);
+    @GetMapping("/{idPergunta}")
+    public ResponseEntity<List<RespostaArvoreDTO>> buscarPorIdPergunta(@PathVariable Long idPergunta) {
+        List<RespostaArvoreDTO> retorno = new ArrayList<>();
+        for(Resposta r : service.buscaPorIdPergunta(idPergunta)){
+            retorno.add(entityParaDto.arvoreDto(r));
+        }
+        return new ResponseEntity<>(retorno, HttpStatus.OK);
     }
 
     @PostMapping

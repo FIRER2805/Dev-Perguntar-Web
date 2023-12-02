@@ -19,8 +19,8 @@ public class RespostaService {
         return (List<Resposta>) repository.findAll();
     }
 
-    public Resposta buscarPorId(Long id) {
-    	return this.repository.findById(id).get();
+    public List<Resposta> buscaPorIdPergunta(Long idPergunta){
+        return repository.buscaPorIdPergunta(idPergunta);
     }
 
     public Resposta salvar(Resposta resposta) throws CampoInvalidoException {
