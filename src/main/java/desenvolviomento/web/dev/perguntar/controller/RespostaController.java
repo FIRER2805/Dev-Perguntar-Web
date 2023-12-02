@@ -2,6 +2,8 @@ package desenvolviomento.web.dev.perguntar.controller;
 
 import java.util.List;
 
+import desenvolviomento.web.dev.perguntar.model.conversores.DtoParaEntity;
+import desenvolviomento.web.dev.perguntar.model.dto.RespostaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +28,9 @@ public class RespostaController {
     @Autowired
     private RespostaService service;
 
+    @Autowired
+    DtoParaEntity dtoParaEntity;
+
     @GetMapping()
     public List<Resposta> buscarTodos() {
         return service.buscarTodos();
@@ -37,9 +42,10 @@ public class RespostaController {
     }
 
     @PostMapping
-    public ResponseEntity<Resposta> salvar(@RequestBody Resposta resposta) {
+    public ResponseEntity<Resposta> salvar(@RequestBody RespostaDTO respostaDTO) {
         try {
-        	return new ResponseEntity<Resposta>(service.salvar(resposta),HttpStatus.CREATED);
+            Resposta r = dtoParaEntity.resposta(respostaDTO);
+        	return new ResponseEntity<Resposta>(service.salvar(r),HttpStatus.CREATED);
         }
         catch(CampoInvalidoException e) {
         	return new ResponseEntity<Resposta>(HttpStatus.BAD_REQUEST);
@@ -47,9 +53,10 @@ public class RespostaController {
     }
 
     @PutMapping
-    public ResponseEntity<Resposta> atualizar(@RequestBody Resposta resposta) throws CampoInvalidoException {
+    public ResponseEntity<Resposta> atualizar(@RequestBody RespostaDTO respostaDto) throws CampoInvalidoException {
         try {
-        	return new ResponseEntity<Resposta>(service.atualizar(resposta),HttpStatus.CREATED);
+            Resposta r = dtoParaEntity.resposta(respostaDto);
+        	return new ResponseEntity<Resposta>(service.atualizar(r),HttpStatus.CREATED);
         }
         catch(CampoInvalidoException e) {
         	return new ResponseEntity<Resposta>(HttpStatus.BAD_REQUEST);

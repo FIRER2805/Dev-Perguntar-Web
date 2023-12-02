@@ -2,6 +2,7 @@ package desenvolviomento.web.dev.perguntar.controller;
 
 import java.util.List;
 
+import desenvolviomento.web.dev.perguntar.model.conversores.DtoParaEntity;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,7 +34,7 @@ public class PerguntaController {
     private UsuarioService usuarioService;
     
     @Autowired
-    private ModelMapper modelMapper;
+    private DtoParaEntity dtoParaEntity;
 
     @GetMapping
     public List<Pergunta> buscarTodos() {
@@ -49,7 +50,7 @@ public class PerguntaController {
     @PostMapping
     public ResponseEntity<Pergunta> salvar(@RequestBody PerguntaDTO perguntadto) {
         try {
-        	Pergunta pergunta = this.dtoParaEntity(perguntadto);
+        	Pergunta pergunta = this.dtoParaEntity.pergunta(perguntadto);
         	return new ResponseEntity<Pergunta>(perguntaService.salvar(pergunta), HttpStatus.CREATED);
         }
         catch(CampoInvalidoException e) {
@@ -60,7 +61,7 @@ public class PerguntaController {
     @PutMapping
     public ResponseEntity<Pergunta> atualizar(@RequestBody PerguntaDTO perguntadto) {
         try {
-        	Pergunta pergunta = this.dtoParaEntity(perguntadto);
+        	Pergunta pergunta = this.dtoParaEntity.pergunta(perguntadto);
         	return new ResponseEntity<Pergunta>(perguntaService.atualizar(pergunta), HttpStatus.OK);
         }
         catch(CampoInvalidoException e) {
@@ -70,18 +71,8 @@ public class PerguntaController {
 
     @DeleteMapping
     public ResponseEntity<Pergunta> deletar(@RequestBody PerguntaDTO dto) {
-    	Pergunta pergunta = this.dtoParaEntity(dto);
+        Pergunta pergunta = this.dtoParaEntity.pergunta(dto);
         perguntaService.deletar(pergunta);
         return new ResponseEntity<Pergunta>(HttpStatus.OK);
-    }
-    
-    private PerguntaDTO entityParaDTO(Pergunta p) {
-    	PerguntaDTO dto = modelMapper.map(p, PerguntaDTO.class);
-    	return dto;
-    }
-    
-    private Pergunta dtoParaEntity(PerguntaDTO dto) {
-    	Pergunta p = modelMapper.map(dto, Pergunta.class);
-    	return p;
     }
 }
