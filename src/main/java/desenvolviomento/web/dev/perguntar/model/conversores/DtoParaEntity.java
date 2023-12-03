@@ -16,7 +16,13 @@ public class DtoParaEntity {
     @Autowired
     private ModelMapper modelMapper;
     public Resposta resposta(RespostaDTO dto){
-        return modelMapper.map(dto, Resposta.class);
+        Resposta resposta = modelMapper.map(dto, Resposta.class);
+        // solução provisória para o bug do respostaPai
+        // TODO melhorar isso
+        Resposta respostaPai = new Resposta();
+        respostaPai.setId(dto.getIdRespostaPai());
+        resposta.setRespostaPai(respostaPai);
+        return resposta;
     }
 
     public Pergunta pergunta(PerguntaDTO dto){

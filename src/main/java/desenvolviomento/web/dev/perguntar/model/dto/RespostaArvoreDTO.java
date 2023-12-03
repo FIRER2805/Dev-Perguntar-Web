@@ -9,6 +9,7 @@ public class RespostaArvoreDTO {
     private Boolean solucao;
     private Long idUsuario;
 
+
     public Long getKey() {
         return key;
     }
