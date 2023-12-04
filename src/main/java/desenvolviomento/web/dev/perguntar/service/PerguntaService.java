@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import desenvolviomento.web.dev.perguntar.exceptions.CampoInvalidoException;
 import desenvolviomento.web.dev.perguntar.model.entity.Pergunta;
 import desenvolviomento.web.dev.perguntar.model.repository.PerguntaRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class PerguntaService {
@@ -31,6 +32,11 @@ public class PerguntaService {
 	public Pergunta atualizar(Pergunta pergunta) throws CampoInvalidoException {
 		this.ValidaCampos(pergunta);
 		return this.repository.save(pergunta);
+	}
+
+	@Transactional
+	public void marcarPerguntaComoResolvida(Long id){
+		this.repository.marcarPerguntaComoResolvida(id);
 	}
 
 	public void deletar(Pergunta pergunta) {

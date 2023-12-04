@@ -7,6 +7,7 @@ import desenvolviomento.web.dev.perguntar.model.conversores.DtoParaEntity;
 import desenvolviomento.web.dev.perguntar.model.conversores.EntityParaDto;
 import desenvolviomento.web.dev.perguntar.model.dto.RespostaArvoreDTO;
 import desenvolviomento.web.dev.perguntar.model.dto.RespostaDTO;
+import desenvolviomento.web.dev.perguntar.model.dto.SolucaoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +38,7 @@ public class RespostaController {
     @Autowired
     EntityParaDto entityParaDto;
 
-    @GetMapping()
+    @GetMapping
     public List<Resposta> buscarTodos() {
         return service.buscarTodos();
     }
@@ -71,6 +72,12 @@ public class RespostaController {
         catch(CampoInvalidoException e) {
         	return new ResponseEntity<Resposta>(HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @PutMapping("/solucao")
+    public ResponseEntity marcaRespostaComoSolucao(@RequestBody SolucaoDTO solucaoDTO){
+        service.marcaRespostaComoSolucao(solucaoDTO);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @DeleteMapping
