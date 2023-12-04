@@ -55,8 +55,6 @@ public class RespostaController {
     public ResponseEntity<Resposta> salvar(@RequestBody RespostaDTO respostaDTO) {
         try {
             Resposta r = dtoParaEntity.resposta(respostaDTO);
-            System.out.println(r.getPergunta().getId());
-            System.out.println(r.getRespostaPai().getId());
         	return new ResponseEntity<Resposta>(service.salvar(r),HttpStatus.CREATED);
         }
         catch(CampoInvalidoException e) {

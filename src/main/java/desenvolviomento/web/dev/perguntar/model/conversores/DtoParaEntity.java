@@ -19,9 +19,11 @@ public class DtoParaEntity {
         Resposta resposta = modelMapper.map(dto, Resposta.class);
         // solução provisória para o bug do respostaPai
         // TODO melhorar isso
-        Resposta respostaPai = new Resposta();
-        respostaPai.setId(dto.getIdRespostaPai());
-        resposta.setRespostaPai(respostaPai);
+        if(dto.getIdRespostaPai() != null){
+            Resposta respostaPai = new Resposta();
+            respostaPai.setId(dto.getIdRespostaPai());
+            resposta.setRespostaPai(respostaPai);
+        }
         return resposta;
     }
 
