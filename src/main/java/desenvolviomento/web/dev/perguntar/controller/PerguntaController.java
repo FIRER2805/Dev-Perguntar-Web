@@ -3,6 +3,7 @@ package desenvolviomento.web.dev.perguntar.controller;
 import java.util.List;
 
 import desenvolviomento.web.dev.perguntar.model.conversores.DtoParaEntity;
+import desenvolviomento.web.dev.perguntar.model.seletores.PerguntaSeletor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -44,6 +45,11 @@ public class PerguntaController {
     @GetMapping("/{id}")
     public Pergunta buscarPorId(@PathVariable Long id) {
         return perguntaService.buscarPorId(id);
+    }
+
+    @PostMapping("/filtro")
+    public List<Pergunta> buscarComFiltro(@RequestBody PerguntaSeletor seletor){
+        return perguntaService.buscarComSeletor(seletor);
     }
     
     // TODO perguntar pro professor se seria melhor usar um DTO

@@ -2,7 +2,10 @@ package desenvolviomento.web.dev.perguntar.service;
 
 import java.util.List;
 
+import desenvolviomento.web.dev.perguntar.model.seletores.PerguntaSeletor;
+import desenvolviomento.web.dev.perguntar.model.specification.PerguntaSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import desenvolviomento.web.dev.perguntar.exceptions.CampoInvalidoException;
@@ -22,6 +25,27 @@ public class PerguntaService {
 
 	public Pergunta buscarPorId(Long id) {
 		return this.repository.findById(id).get();
+	}
+
+	public List<Pergunta> buscarComSeletor(PerguntaSeletor seletor){
+		Specification<Pergunta> specification = Specification.where(null);
+		if(seletor.getNome() != null && !seletor.getNome().isBlank()) {
+			specification = specification.and(PerguntaSpecification.temTitulo(seletor.getNome()));
+		}
+		if(seletor.getDataFinal() != null && seletor.getDataFinal() != null){
+			specification = specification.and(PerguntaSpecification
+					.temDataInicialEDataFinal(seletor.getDataInicial(), seletor.getDataFinal()));
+		} else if(seletor.getDataInicial() != null){
+			specification = specification.and(PerguntaSpecification.temDataInicial(seletor.getDataInicial()));
+		}
+		if(seletor.getIdCategoria() != null){
+			specification = specification.and(PerguntaSpecification.temCategoria(seletor.getIdCategoria()));
+		}
+		if(seletor.getResolvida() != null && seletor.getResolvida()){
+			specification = specification.and(PerguntaSpecification.foiResolvida());
+		}
+
+		return repository.findAll(specification);
 	}
 
 	public Pergunta salvar(Pergunta pergunta) throws CampoInvalidoException {
