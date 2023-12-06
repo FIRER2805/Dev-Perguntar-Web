@@ -5,6 +5,9 @@ import java.util.List;
 import desenvolviomento.web.dev.perguntar.model.seletores.PerguntaSeletor;
 import desenvolviomento.web.dev.perguntar.model.specification.PerguntaSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +30,7 @@ public class PerguntaService {
 		return this.repository.findById(id).get();
 	}
 
-	public List<Pergunta> buscarComSeletor(PerguntaSeletor seletor){
+	public Page<Pergunta> buscarComSeletor(PerguntaSeletor seletor, Pageable page){
 		Specification<Pergunta> specification = Specification.where(null);
 		if(seletor.getNome() != null && !seletor.getNome().isBlank()) {
 			specification = specification.and(PerguntaSpecification.temTitulo(seletor.getNome()));
@@ -45,7 +48,7 @@ public class PerguntaService {
 			specification = specification.and(PerguntaSpecification.foiResolvida());
 		}
 
-		return repository.findAll(specification);
+		return repository.findAll(specification, page);
 	}
 
 	public Pergunta salvar(Pergunta pergunta) throws CampoInvalidoException {

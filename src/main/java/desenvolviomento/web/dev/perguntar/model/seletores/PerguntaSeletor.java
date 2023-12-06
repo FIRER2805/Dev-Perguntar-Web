@@ -8,6 +8,7 @@ public class PerguntaSeletor {
     Date dataFinal;
     Long idCategoria;
     Boolean resolvida;
+    Integer pagina;
 
     public String getNome() {
         return nome;
@@ -47,5 +48,12 @@ public class PerguntaSeletor {
 
     public void setResolvida(Boolean resolvida) {
         this.resolvida = resolvida;
+    }
+    public Integer getPagina() {
+        return pagina;
+    }
+
+    public void setPagina(Integer pagina) {
+        this.pagina = pagina;
     }
 }
