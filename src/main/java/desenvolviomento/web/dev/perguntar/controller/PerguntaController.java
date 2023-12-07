@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -53,9 +54,9 @@ public class PerguntaController {
     public Page<Pergunta> buscarComFiltro(@RequestBody PerguntaSeletor seletor){
         Pageable page = null;
         if(seletor.getPagina() != null && seletor.getPagina() > 0) {
-            page = PageRequest.of(seletor.getPagina(), 5);
+            page = PageRequest.of(seletor.getPagina(), 5, Sort.by("dataPergunta").descending());
         } else {
-            page = PageRequest.of(0, 5);
+            page = PageRequest.of(0, 5, Sort.by("dataPergunta").descending());
         }
         return perguntaService.buscarComSeletor(seletor, page);
     }

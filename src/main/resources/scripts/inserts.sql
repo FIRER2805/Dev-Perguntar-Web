@@ -89,7 +89,7 @@ INSERT INTO categoria (nome) VALUES
 INSERT INTO pergunta (titulo, conteudo, data_pergunta, id_usuario, id_categoria) VALUES
     ('Desenvolvimento de aplicações cross-platform com Flutter', 'Conteúdo da Pergunta 10', '2023-10-05 10:55:00', 10, 10),
     ('Melhores práticas para SEO em sites', 'Conteúdo da Pergunta 11', '2023-11-15 15:25:00', 11, 11),
-    ('Desafios em projetos de machine learning', 'Conteúdo da Pergunta 12', '2023-12-20 20:10:00', 12, 12);
+    ('Desafios em projetos de machine learning', 'Conteúdo da Pergunta 12', '2023-11-20 20:10:00', 12, 12);
 
 -- Populando a tabela 'resposta'
 INSERT INTO resposta (conteudo, solucao, id_pergunta, id_usuario) VALUES
