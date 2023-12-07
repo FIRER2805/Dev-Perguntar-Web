@@ -2,6 +2,7 @@ package desenvolviomento.web.dev.perguntar.controller;
 
 import java.util.List;
 
+import desenvolviomento.web.dev.perguntar.model.dto.RelatorioDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +36,11 @@ public class CategoriaController {
     @GetMapping("/{id}")
     public Categoria buscarPorId(@PathVariable Long id) {
         return service.buscarPorId(id);
+    }
+
+    @GetMapping("/relatorio")
+    public List<RelatorioDTO> gerarRelatorio(){
+        return service.gerarRelatorio();
     }
 
     @PostMapping

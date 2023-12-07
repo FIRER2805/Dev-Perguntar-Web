@@ -3,6 +3,7 @@ package desenvolviomento.web.dev.perguntar.service;
 import java.util.List;
 import java.util.Optional;
 
+import desenvolviomento.web.dev.perguntar.model.dto.RelatorioDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,10 @@ public class CategoriaService {
 
     public Categoria buscarPorId(Long id) {
     	return repository.findById(id).get();
+    }
+
+    public List<RelatorioDTO> gerarRelatorio(){
+        return repository.gerarRelatorio();
     }
 
     public Categoria salvar(Categoria categoria) throws CampoInvalidoException {
