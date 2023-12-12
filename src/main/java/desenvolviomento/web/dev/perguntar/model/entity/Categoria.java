@@ -1,7 +1,10 @@
 package desenvolviomento.web.dev.perguntar.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import desenvolviomento.web.dev.perguntar.model.dto.RelatorioDTO;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @NamedNativeQuery(name="Categoria.gerarRelatorio", query="SELECT\n" +
@@ -30,6 +33,10 @@ public class Categoria {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
+
+	@OneToMany(mappedBy="categoria")
+	@JsonBackReference
+	private List<Pergunta> perguntas;
     
 	public Long getId() {
 		return id;
@@ -42,5 +49,13 @@ public class Categoria {
 	}
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public List<Pergunta> getPerguntas() {
+		return perguntas;
+	}
+
+	public void setPerguntas(List<Pergunta> perguntas) {
+		this.perguntas = perguntas;
 	}
 }

@@ -3,6 +3,7 @@ package desenvolviomento.web.dev.perguntar.model.entity;
 import java.sql.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
@@ -28,8 +29,12 @@ public class Pergunta {
     private Date dataPergunta;
     @Column(name = "data_resolucao")
     private Date dataResolucao;
+
+	@OneToMany(mappedBy="pergunta")
+	@JsonBackReference
+	private List<Resposta> respostas;
     
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="id_categoria")
     private Categoria categoria;
     
@@ -78,5 +83,13 @@ public class Pergunta {
 	}
 	public void setDataResolucao(Date dataResolucao) {
 		this.dataResolucao = dataResolucao;
+	}
+
+	public List<Resposta> getRespostas() {
+		return respostas;
+	}
+
+	public void setRespostas(List<Resposta> respostas) {
+		this.respostas = respostas;
 	}
 }
